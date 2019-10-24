@@ -1,4 +1,4 @@
-# 3D Human Pose Reconstruction via Wieberg Apprach
+# 3D Human Pose Reconstruction via Wiberg Apprach
 
 This is the code for the Pose Estimation experiments
 of the paper "Wibergian Learning for Continuous Energy 
