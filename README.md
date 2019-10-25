@@ -1,12 +1,52 @@
-# 3D Human Pose Reconstruction via Wiberg Apprach
+# Wibergian Learning
 
-This is the code for the Pose Estimation experiments
-of the paper "Wibergian Learning for Continuous Energy 
+This is the code for the paper "Trust-region Fixed Points for Learning Continuous Energy 
 Functions", by Matteo Toso, Neill Campbell and Chris Russell.
 In NeurIPS 2019.
 
+The code is divided into two directory: *RanSac* and *HumanPose*. The former 
+contains the code used for the toy-model example provided in the paper,
+and it is the best suited to understand how to implement our method for 
+hyper-parameter tuning. 
+The latter contains the code for the 3D Human Pose Reconstruction experiment,
+heavily based on the ["Rethinking Pose in 3D"](https://arxiv.org/abs/1808.01525) paper.
+
+# RanSac
+
 Dependencies
 
+- PyTorch
+- python 3
+- matplotlib
+
+## Files Content
+
+1. *wiberg.py* :: classes needed for the general Wibergian learning approach;
+2. *toy.py* :: code used for the RanSac-like example;
+
+## Running the program
+
+By running
+
+> python3 toy.py
+
+you can run the toy experiment provided in the paper. This will generate a random
+sed of values: 10 normally distributed 'true' values, and 100 uniformly distributed outliers.
+We estimate the mean of the 'true' values as the minimum of an energy 
+(the sum of 'RBF' functions), and we tune the energy hyper-parameters
+by minimising the squared distance between the estimated and true mean. 
+The code does this using our trust-region approach and an approach 
+equivalent to just using implicit differentiation, and results for both cases
+are plotted against each other.
+
+As the true points and outliers are randomly generated, we suggest running the 
+code multiple times.  
+
+# 3D Human Pose Reconstruction
+
+Dependencies
+
+- python 2.7
 - h5py
 - numpy
 - tensorflow
@@ -37,14 +77,25 @@ the randomised training set, while updating the value of all trainable parameter
 testing set, action by action.
 8. *utils/config.py* :: provides paths used by various functions;
 
-## Testing the code
+## Trying the code
 
-The Python file *'Sample.py'* shows how the pose reconstruction works:
-starting from four 2D poses, it generates the corresponding 3D reconstruction 
-and compares it to the available ground truth.
-To reproduce the results of our best trained model, launch the command
+We first suggest trying our approach to human pose reconstruction. Running
+ 
+> python Sample.py
+
+will produce a 3D reconstruction starting from four 2D poses, 
+compare it to the available ground truth.
+
+The command
 
 > python main.py --name='new_model' --check_path='data/trained_model.h5'
+
+will reproduce the best results included in the paper, by running the whole
+testing set trough the lifting process while using trained model's parameters.
+This will create a new folder *'results/new_model'*, and produce *npy* files containing 
+the reconstructed poses (*'poses.npy'*), the ground truth poses (*'truth.npy*),
+the corresponding reconstruction errors (*'errors.npy'*). *'tabled_res.npy'*
+contains the average per action reconstruction error, as reported in the paper's table. 
 
 ## Training and evaluating   
 
@@ -69,5 +120,18 @@ and specifying the model parameters to load via the flag *'--check_path'*:
 > main.py --wlr=5e-2 --name='new_model' --check_path='results/new_model/check/partial_checkpoint.h5'
 
 If no model parameters are provided, the program will use the default values by
-Tome et.al. and, where that is not possible, use the identity elements of the 
-operation the parameters are used in.
+Tome et.al.
+
+
+### Citing
+
+If you use our code, please cite our work
+
+```
+@inproceedings{wibergianlearning_2019,
+  title={Trust-region Fixed Points for Learning Continuous Energy Functions},
+  author={Toso, Matteo and Campbell, Neil and Russell, Chris},
+  booktitle={NIPS 2019},
+  year={2019}
+}
+```
