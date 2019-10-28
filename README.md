@@ -1,7 +1,7 @@
 # Wibergian Learning
 
-This is the code for the paper "Trust-region Fixed Points for Learning Continuous Energy 
-Functions", by Matteo Toso, Neill Campbell and Chris Russell.
+This is the code for the paper "Fixing Implicit Derivatives: Trust-Region Based
+Learning of Continuous Energy Functions", by Matteo Toso, Neill Campbell and Chris Russell.
 In NeurIPS 2019.
 
 The code is divided into two directory: *RanSac* and *HumanPose*. The former 
@@ -129,7 +129,7 @@ If you use our code, please cite our work
 
 ```
 @inproceedings{wibergianlearning_2019,
-  title={Trust-region Fixed Points for Learning Continuous Energy Functions},
+  title={Fixing Implicit Derivatives: Trust-Region Based Learning of Continuous Energy Functions},
   author={Toso, Matteo and Campbell, Neil and Russell, Chris},
   booktitle={NIPS 2019},
   year={2019}
